@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} - CSRF Lab{% endblock %}
+
+{% block content %}
+<section class="card narrow">
+  <p class="eyebrow">HTTP {{ code }}</p>
+  <h1>{{ title }}</h1>
+  <p class="error-message">{{ message }}</p>
+
+  {% if mode == 'secure' %}
+    <div class="callout">
+      <strong>Why this is blocked:</strong>
+      the session cookie is <code>SameSite=Strict</code>, so the browser did not
+      attach it to this cross-site request. The server therefore sees an
+      anonymous request. The transfer never executed.
+    </div>
+  {% else %}
+    <div class="callout">
+      In vulnerable mode, a cross-site top-level GET still carries the
+      <code>SameSite=Lax</code> session cookie.
+    </div>
+  {% endif %}
+
+  <p><a class="button-link" href="{{ url_for('login') }}">Go to login</a></p>
+</section>
+{% endblock %}

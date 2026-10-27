@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Login - CSRF Lab{% endblock %}
+
+{% block content %}
+<section class="card narrow">
+  <h1>Sign in</h1>
+  <p class="muted">A small banking demo used to demonstrate GET-based CSRF.</p>
+
+  <form method="post" action="{{ url_for('login') }}" class="stack">
+    <label>
+      Username
+      <input type="text" name="username" autocomplete="username" required autofocus>
+    </label>
+    <label>
+      Password
+      <input type="password" name="password" autocomplete="current-password" required>
+    </label>
+    <button type="submit">Sign in</button>
+  </form>
+
+  <div class="demo-creds">
+    <h2>Demo accounts</h2>
+    <p><code>alice / alice123</code> &mdash; victim, balance Rs. 1,000</p>
+    <p><code>mallory / mallory123</code> &mdash; attacker, balance Rs. 0</p>
+    <p><code>bob / bob123</code> &mdash; normal recipient, balance Rs. 500</p>
+  </div>
+</section>
+{% endblock %}

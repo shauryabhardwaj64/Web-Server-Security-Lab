@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - CSRF Lab{% endblock %}
+
+{% block content %}
+<div class="grid">
+  <section class="card">
+    <p class="eyebrow">Available balance</p>
+    <p class="balance">Rs. {{ "{:,}".format(balance) }}</p>
+    <p class="muted">Signed in as <strong>{{ username }}</strong></p>
+  </section>
+
+  <section class="card">
+    <h2>Transfer money</h2>
+    <p class="muted">
+      This form intentionally uses <code>GET</code> in both modes, so the
+      transfer parameters appear in the URL. That is the vulnerable design.
+    </p>
+
+    <form method="get" action="{{ url_for('transfer') }}" class="stack">
+      <label>
+        Recipient
+        <select name="to" required>
+          {% for recipient in recipients %}
+            <option value="{{ recipient }}">{{ recipient }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>
+        Amount (Rs.)
+        <input type="number" name="amount" min="1" max="{{ balance }}" value="100" required>
+      </label>
+      <button type="submit">Send transfer</button>
+    </form>
+  </section>
+</div>
+
+<section class="card">
+  <h2>Recent activity</h2>
+  {% if transfers %}
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Amount</th>
+          <th>Mode</th>
+          <th>Referer</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for transfer in transfers %}
+          <tr>
+            <td>{{ transfer.time }}</td>
+            <td>{{ transfer.from }}</td>
+            <td>{{ transfer.to }}</td>
+            <td>Rs. {{ "{:,}".format(transfer.amount) }}</td>
+            <td><span class="tag {{ transfer.mode }}">{{ transfer.mode }}</span></td>
+            <td class="small">{{ transfer.referer }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p class="muted">No transfers yet.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>Demo ledger</h2>
+  <p class="muted">All balances are shown here only to make the lab evidence obvious.</p>
+  <table class="compact">
+    <thead>
+      <tr><th>Account</th><th>Balance</th></tr>
+    </thead>
+    <tbody>
+      {% for name, amount in all_balances.items() %}
+        <tr>
+          <td>{{ name }}</td>
+          <td>Rs. {{ "{:,}".format(amount) }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

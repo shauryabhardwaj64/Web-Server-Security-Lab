@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}CSRF Lab{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">CSRF Lab</div>
+    <div class="mode-badge {{ mode }}">{{ mode|upper }} MODE</div>
+    {% if current_user %}
+      <nav class="nav">
+        <span class="user">Signed in as <strong>{{ current_user }}</strong></span>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </nav>
+    {% endif %}
+  </header>
+
+  {% if mode == 'vulnerable' %}
+    <div class="banner warning">
+      Vulnerable: the session cookie is <code>SameSite=Lax</code>.
+      A cross-site <strong>top-level GET</strong> still carries it.
+    </div>
+  {% else %}
+    <div class="banner safe">
+      Secure: the session cookie is <code>SameSite=Strict</code>.
+      Cross-site requests do not carry it.
+    </div>
+  {% endif %}
+
+  <main class="page">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flashes">
+          {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
