@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SQL Injection Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <p class="eyebrow">WEB SERVER SECURITY · LOCAL DEMO</p>
+      <h1>SQL Injection: Authentication Bypass</h1>
+      <p class="intro">Compare an unsafe login query with the same login protected by parameterized SQL.</p>
+    </header>
+
+    <section class="card">
+      <div class="tabs">
+        <button id="vulnerableTab" class="tab active" type="button">1. Vulnerable Login</button>
+        <button id="secureTab" class="tab" type="button">2. Secure Login</button>
+      </div>
+
+      <div id="modeNote" class="note danger">Vulnerable mode: input is inserted directly into the SQL query.</div>
+
+      <form id="loginForm">
+        <label for="username">Username</label>
+        <input id="username" name="username" autocomplete="off" required placeholder="Enter username">
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="off" placeholder="Enter password">
+
+        <button class="submit" type="submit">Test Login</button>
+      </form>
+
+      <div class="quick">
+        <button type="button" id="fillPayload">Fill test payload</button>
+        <button type="button" id="fillInvalid">Fill invalid login</button>
+        <button type="button" id="fillValid">Fill valid login</button>
+        <button type="button" id="clear">Clear</button>
+      </div>
+
+      <section id="result" class="result" hidden aria-live="polite">
+        <h2 id="resultTitle"></h2>
+        <p id="resultMessage"></p>
+        <p id="userDetails"></p>
+        <h3>Query used by the backend</h3>
+        <pre id="query"></pre>
+      </section>
+    </section>
+
+    <section class="card explanation">
+      <h2 id="queryHeading">Vulnerable query pattern</h2>
+      <pre id="queryPattern">SELECT ... WHERE username = '${username}' AND password = '${password}'</pre>
+      <p id="whyText">The application joins user input into the SQL text. A crafted username can change the query's meaning and comment out the password condition.</p>
+      <hr>
+      <h2>What to remember</h2>
+      <ul>
+        <li><strong>Root cause:</strong> SQL syntax and user input are combined in one string.</li>
+        <li><strong>Fix shown here:</strong> parameterized query using <code>?</code> placeholders.</li>
+        <li><strong>Other defenses:</strong> allow-list validation, least-privilege database permissions, and generic error messages.</li>
+      </ul>
+    </section>
+
+    <footer>Fictional accounts · Local demonstration only · Do not deploy the vulnerable route.</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

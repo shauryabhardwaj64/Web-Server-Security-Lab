@@ -1,0 +1,14 @@
+{
+  "name": "sql-injection-auth-bypass-lab",
+  "version": "1.0.0",
+  "description": "Local-only SQL injection authentication bypass demonstration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test_sqli.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2"
+  }
+}
