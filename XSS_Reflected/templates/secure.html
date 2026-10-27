@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Secure Search</title>
+		<style>
+			body {
+				font: 16px system-ui;
+				background: #f0fff7;
+				padding: 40px;
+				max-width: 780px;
+				margin: auto;
+			}
+
+			main {
+				background: white;
+				padding: 30px;
+				border-radius: 14px;
+			}
+
+			input {
+				padding: 10px;
+				width: 65%;
+			}
+
+			button {
+				padding: 10px;
+			}
+
+			a {
+				color: #165ca6;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<h1>Secure Search</h1>
+			<p>Jinja auto-escaping is on. The input is treated as text, not executable HTML.</p>
+			<form method="get" action="/secure">
+				<input name="q" placeholder="Enter a search term" value="{{ query }}">
+				<button type="submit">Search</button>
+			</form>
+			<h2>Search results for:</h2>
+			<div id="output">{{ query }}</div>
+			<p>
+				<a href="/vulnerable">Compare vulnerable version</a>
+				·
+				<a href="/">Home</a>
+			</p>
+		</main>
+	</body>
+</html>

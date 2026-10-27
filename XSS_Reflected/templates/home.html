@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Reflected XSS Lab</title>
+		<style>
+			body {
+				font: 16px system-ui;
+				background: #f3f5f9;
+				padding: 40px;
+				max-width: 780px;
+				margin: auto;
+			}
+
+			main {
+				background: #fff;
+				padding: 30px;
+				border-radius: 14px;
+			}
+
+			a {
+				display: inline-block;
+				margin-right: 16px;
+				color: #0c56ad;
+			}
+
+			code {
+				background: #eee;
+				padding: 3px 6px;
+			}
+		</style>
+	</head>
+	<body>
+		<main>
+			<h1>Reflected XSS Lab</h1>
+			<p>Only test this application locally on your own machine.</p>
+			<p>Both pages accept a search query. The vulnerable version trusts user input; the secure version safely escapes it.</p>
+			<a href="/vulnerable">Vulnerable search</a>
+			<a href="/secure">Secure search</a>
+			<p>Try this example in each search field:</p>
+			<code>&lt;script&gt;alert('XSS Demo')&lt;/script&gt;</code>
+		</main>
+	</body>
+</html>
