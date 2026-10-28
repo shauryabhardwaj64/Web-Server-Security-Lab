@@ -12,10 +12,7 @@
 
 | Member Name | Roll Number | Category | Variant Implemented |
 | :--- | :--- | :--- | :--- |
-| *[Your Name]* | *[Your Roll No, e.g., IIT2023xxx]* | OS Command Injection | Variant 1: In-band (command output returned) |
-| *[Teammate 2]* | *[Roll No]* | SQL Injection | Variant 1: Authentication bypass *(or Variant 2)* |
-| *[Teammate 3]* | *[Roll No]* | Cross-Site Scripting (XSS) | Variant 1: Stored XSS *(or Variant 2)* |
-| *[Teammate 4]* | *[Roll No]* | Cross-Site Request Forgery (CSRF) | Variant 1: GET-based forged action *(or Variant 2)* |
+| *[Murari Kandagatla]* | *[IIT2024252]* | OS Command Injection | Variant 1: In-band (command output returned) |
 
 ---
 
